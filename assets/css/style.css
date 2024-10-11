@@ -1,0 +1,83 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  display: flex;
+  margin: 10px 10px;
+  gap: 15px; 
+}
+section {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  justify-content: center;
+  align-content: center;
+}
+
+.cores {
+  border: solid 1px black;
+  height: 508px;
+  width: 188px;
+  border-radius: 10px;
+}
+.cores:hover{
+    z-index: 1;
+    height: 508px;
+     width: 250px;
+}
+#randonBtn{
+    margin-right: 250px;
+    margin-bottom: 10px;
+    justify-content: end;
+}
+.botaoRandon{
+    border: none;
+    background-color: transparent;
+
+}
+.principal .cores .btn{
+    margin-left: 50%;
+    margin-top: 250px;
+    border: none;
+    background-color: transparent;
+}
+.principal .cores p{
+    margin-left: 40%;
+    margin-top: 10px;
+}
+
+
+
+.alerta {
+    align-content: center;
+    margin: 0 auto;
+    width: 30%;
+    height: 50px;
+    background-color: green;
+    border-radius: 10px;
+    position: absolute; 
+    bottom: 0; 
+    right: 0; 
+    margin: 10px; 
+    background-color: rgb(187, 225, 238); 
+    padding: 10px; 
+    border: 1px solid #000; 
+    display: none; 
+    opacity: 0; 
+    transition: opacity 0.5s ease-in; 
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: 700;
+}
+
+
+.alerta.mostrar {
+    display: block; /* Torna a div visível */
+    opacity: 1;
+}
+
+.alerta.esconder {
+    opacity: 0; /* Torna a div transparente */
+}
