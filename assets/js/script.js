@@ -1,23 +1,31 @@
-let botoes = document.querySelectorAll(".btn");
+
 let mensagemDiv = document.getElementById("hide");
 let btnRandon = document.querySelector('.botaoRandon')
+let paragrafos = document.querySelectorAll(".resultado");
+let backGround = document.querySelectorAll(".cores");
+
+
 btnRandon.addEventListener("click",randomCores)
 
-botoes.forEach((botao) => botao.addEventListener("click", clickImg));
+paragrafos.forEach(paragrafo => {
+  paragrafo.addEventListener('click', clickImg);
+});
 
 async function carregarPalleta() {
-  const resposta = await fetch("./data.json");
-  let jsonData = await resposta.json();
-  const randomId = jsonData.filter((item) => item.id !== 1);
-  if (randomId.length > 0) {
-    const randon = randomId[Math.floor(Math.random() * randomId.length)];
-    atribuirPalleta(randon.colorPalette);
+  try {
+    const resposta = await fetch("./data.json");
+    const jsonData = await resposta.json();
+    const randomId = jsonData.filter((item) => item.id !== 1);
+    if (randomId.length > 0) {
+      const randon = randomId[Math.floor(Math.random() * randomId.length)];
+      atribuirPalleta(randon.colorPalette);
+    }
+  } catch (error) {
+    console.error("Erro ao carregar o JSON:", error);
   }
 }
 
 function atribuirPalleta(colorPalette) {
-  let paragrafos = document.querySelectorAll(".resultado");
-  let backGround = document.querySelectorAll(".cores");
 
   colorPalette.forEach((item, index) => {
     if (index < paragrafos.length) {
@@ -27,12 +35,22 @@ function atribuirPalleta(colorPalette) {
     }
   });
 }
-carregarPalleta();
+function randomCores(){
+  carregarPalleta()
+
+}
+
 
 function clickImg(e) {
   e.preventDefault();
-  let alerta = document.querySelector(".alerta");
-  alerta.innerHTML = "Copiado para area de transferencia";
+  const selectedColor = e.target.textContent;
+  navigator.clipboard.writeText(selectedColor).then(() => {
+    let alerta = document.querySelector(".alerta");
+    alerta.textContent = `Cor ${selectedColor} copiada com sucesso`;
+
+  }).catch(err => {
+    console.error('Erro ao copiar para a área de transferência', err);
+  });
   mostrarMsg();
 }
 
@@ -42,14 +60,17 @@ function mostrarMsg() {
 
   setTimeout(function () {
     mensagemDiv.classList.add("esconder");
-    setTimeout(() => {
-      mensagemDiv.classList.remove('mostrar', 'esconder');
+    setTimeout(() => {       mensagemDiv.classList.remove('mostrar', 'esconder');
       mensagemDiv.style.display = "none";
     }, 500);
-  }, 600);
-}
+   }, 600);
+ }
 
 function randomCores(){
   carregarPalleta()
 
 }
+
+
+
+carregarPalleta();
